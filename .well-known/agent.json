@@ -1,0 +1,13 @@
+{
+  "name": "BTC Drift Oracle",
+  "description": "Real-time BTC price drift analysis between Kalshi and Spot markets.",
+  "author": "Jerry Garcia",
+  "version": "1.0.0",
+  "endpoints": [
+    {
+      "url": "https://api.jega.digital/api/drift",
+      "method": "GET",
+      "type": "x402"
+    }
+  ]
+}
