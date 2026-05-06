@@ -45,15 +45,7 @@
           "spot_price": { "type": "number" },
           "timestamp": { "type": "integer" },
           "verified": { "type": "boolean" }
-        },
-        "required": [
-          "drift",
-          "kalshi_implied_price",
-          "signal",
-          "spot_price",
-          "timestamp",
-          "verified"
-        ]
+        }
       }
     }
   }
