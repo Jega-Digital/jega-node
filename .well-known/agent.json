@@ -1,39 +1,59 @@
 {
   "x402Version": 2,
+  "error": "Payment required",
   "resource": {
     "url": "https://api.jega.digital/api/drift",
-    "description": "Real-time BTC price drift between Spot and Kalshi.",
+    "description": "Real-time BTC price drift analysis.",
     "mimeType": "application/json"
   },
   "accepts": [
     {
+      "scheme": "exact",
       "network": "eip155:8453",
-      "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "amount": "1000",
+      "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "payTo": "0xb0CA6418E157F501351f09E77d05B8Db54cbc444",
-      "scheme": "exact"
+      "maxTimeoutSeconds": 300
     }
   ],
   "extensions": {
     "bazaar": {
       "info": {
-        "method": "GET",
-        "toolName": "get_btc_drift",
-        "description": "Real-time BTC price drift between Spot and Kalshi.",
         "input": {
-          "type": "object",
-          "properties": {}
+          "type": "http",
+          "method": "GET",
+          "queryParams": {}
         },
         "output": {
+          "type": "json",
           "example": {
-            "spot_price": 81415.08,
-            "kalshi_implied_price": 80914.39,
             "drift": 500.69,
+            "kalshi_implied_price": 80914.39,
             "signal": "LONG",
+            "spot_price": 81415.08,
             "timestamp": 1778032855,
             "verified": true
           }
         }
+      },
+      "schema": {
+        "type": "object",
+        "properties": {
+          "drift": { "type": "number" },
+          "kalshi_implied_price": { "type": "number" },
+          "signal": { "type": "string" },
+          "spot_price": { "type": "number" },
+          "timestamp": { "type": "integer" },
+          "verified": { "type": "boolean" }
+        },
+        "required": [
+          "drift",
+          "kalshi_implied_price",
+          "signal",
+          "spot_price",
+          "timestamp",
+          "verified"
+        ]
       }
     }
   }
