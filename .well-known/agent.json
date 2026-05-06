@@ -1,13 +1,37 @@
 {
-  "name": "BTC Drift Oracle",
-  "description": "Real-time BTC price drift analysis between Kalshi and Spot markets.",
-  "author": "Jerry Garcia",
-  "version": "1.0.0",
-  "endpoints": [
+  "x402Version": 2,
+  "resource": {
+    "url": "https://api.jega.digital/api/drift",
+    "description": "Real-time BTC price drift between Spot and Kalshi.",
+    "mimeType": "application/json"
+  },
+  "accepts": [
     {
-      "url": "https://api.jega.digital/api/drift",
-      "method": "GET",
-      "type": "x402"
+      "network": "eip155:8453",
+      "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "amount": "1000",
+      "payTo": "0xb0CA6418E157F501351f09E77d05B8Db54cbc444",
+      "scheme": "exact"
     }
-  ]
+  ],
+  "extensions": {
+    "bazaar": {
+      "info": {
+        "toolName": "get_btc_drift",
+        "method": "GET",
+        "description": "Real-time BTC price drift between Spot and Kalshi.",
+        "input": {},
+        "output": {
+          "example": {
+            "spot_price": 81415.08,
+            "kalshi_implied_price": 80914.39,
+            "drift": 500.69,
+            "signal": "LONG",
+            "timestamp": 1778032855,
+            "verified": true
+          }
+        }
+      }
+    }
+  }
 }
