@@ -13,7 +13,11 @@
       "amount": "1000",
       "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "payTo": "0xb0CA6418E157F501351f09E77d05B8Db54cbc444",
-      "maxTimeoutSeconds": 300
+      "maxTimeoutSeconds": 300,
+      "extra": {
+        "name": "USD Coin",
+        "version": "2"
+      }
     }
   ],
   "extensions": {
