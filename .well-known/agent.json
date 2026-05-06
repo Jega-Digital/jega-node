@@ -17,10 +17,13 @@
   "extensions": {
     "bazaar": {
       "info": {
-        "toolName": "get_btc_drift",
         "method": "GET",
+        "toolName": "get_btc_drift",
         "description": "Real-time BTC price drift between Spot and Kalshi.",
-        "input": {},
+        "input": {
+          "type": "object",
+          "properties": {}
+        },
         "output": {
           "example": {
             "spot_price": 81415.08,
