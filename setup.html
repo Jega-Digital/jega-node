@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jega Digital | Developer Setup</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #0d1117; color: #c9d1d9; max-width: 800px; margin: 0 auto; padding: 40px 20px; line-height: 1.6; }
+        h1, h2 { color: #58a6ff; }
+        code { background-color: #161b22; padding: 2px 6px; border-radius: 6px; font-family: monospace; color: #ff7b72; }
+        pre { background-color: #161b22; padding: 16px; border-radius: 6px; overflow-x: auto; border: 1px solid #30363d; }
+        pre code { color: #e6edf3; background: none; padding: 0; }
+        .highlight { color: #79c0ff; }
+    </style>
+</head>
+<body>
+
+    <h1>Jega Digital - API Authentication</h1>
+    <p>If you were redirected here, your AI agent or scraper hit our <strong>402 Payment Required</strong> paywall. Jega Digital data pipelines do not use monthly SaaS subscriptions or static API keys. We use native <strong>x402 stablecoin streaming</strong> over the Base network.</p>
+
+    <h2>How to upgrade your bot (Node.js)</h2>
+    <p>To access our endpoints, wrap your standard fetch requests with the x402 SDK. This will stream micro-cents (USDC) from your wallet only when you make a successful request.</p>
+
+    <pre><code>npm install @x402/sdk</code></pre>
+
+    <p>Then, update your script with this 5-line wrapper:</p>
+
+    <pre><code>import { x402Client, wrapFetchWithPayment, registerExactEvmScheme } from "@x402/sdk";
+import { privateKeyToAccount } from "viem/accounts";
+import { base } from "viem/chains";
+
+// 1. Load your funded Base wallet
+const account = privateKeyToAccount("0xYOUR_PRIVATE_KEY");
+const client = new x402Client();
+
+registerExactEvmScheme(client, { signer: account, chainId: base.id });
+const fetchWithPayment = wrapFetchWithPayment(fetch, client);
+
+// 2. Fetch the Premium Data!
+const response = await fetchWithPayment("https://api.jega.digital/api/news/trend", {
+    method: "GET",
+});
+
+const data = await response.json();
+console.log(data);
+</code></pre>
+
+    <h2>Pricing</h2>
+    <ul>
+        <li><strong>Premium Semantic News Feed:</strong> $0.001 USDC / request</li>
+        <li><strong>High-Frequency Arbitrage Drift:</strong> $0.001 USDC / request</li>
+        <li><strong>LLM Markdown Proxy:</strong> $0.005 USDC / request</li>
+    </ul>
+    
+    <p>Need support? Contact <span class="highlight">dev@jega.digital</span></p>
+
+</body>
+</html>
