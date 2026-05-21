@@ -83,6 +83,7 @@
         .keyword { color: #ff7b72; }
         .string { color: #a5d6ff; }
         .comment { color: #8b949e; }
+        .font-weight { color: #d2a8ff; }
         .function { color: #d2a8ff; }
 
         table {
@@ -157,12 +158,11 @@ client.<span class="function">registerExactEvmScheme</span>({ signer: account, c
 <span class="keyword">const</span> fetchWithPayment = <span class="function">wrapFetchWithPayment</span>(fetch, client);
 
 <span class="comment">// 4. Execute. The SDK handles the 402 challenge and streams USDC.</span>
-<span class="keyword">const</span> response = <span class="keyword">await</span> <span class="function">fetchWithPayment</span>(<span class="string">"https://api.jega.digital/api/schema/mcp"</span>, {
+<span class="keyword">const</span> response = <span class="keyword">await</span> <span class="function">fetchWithPayment</span>(<span class="string">"https://api.jega.digital/api/compress"</span>, {
     method: <span class="string">"POST"</span>,
     headers: { <span class="string">"Content-Type"</span>: <span class="string">"application/json"</span> },
     body: JSON.<span class="function">stringify</span>({ 
-        name: <span class="string">"agent_tool"</span>, 
-        description: <span class="string">"Dynamic tool payload here"</span> 
+        raw_text: <span class="string">"This   is a \n\n very bloated \t string of text."</span> 
     })
 });
 
@@ -182,6 +182,12 @@ console.<span class="function">log</span>(data);</code></pre>
             </tr>
         </thead>
         <tbody>
+            <tr>
+                <td><code>/api/compress</code></td>
+                <td>POST</td>
+                <td>$0.001</td>
+                <td><strong>Deterministic Token Shrinker.</strong> Aggressively compresses raw text and RAG payloads to reduce LLM context window token costs by 20-40%.</td>
+            </tr>
             <tr>
                 <td><code>/api/schema/mcp</code></td>
                 <td>POST</td>
