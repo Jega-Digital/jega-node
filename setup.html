@@ -3,56 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jega Digital | Developer Setup</title>
+    <title>Jega Digital | Agent Infrastructure</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #0d1117; color: #c9d1d9; max-width: 800px; margin: 0 auto; padding: 40px 20px; line-height: 1.6; }
-        h1, h2 { color: #58a6ff; }
-        code { background-color: #161b22; padding: 2px 6px; border-radius: 6px; font-family: monospace; color: #ff7b72; }
-        pre { background-color: #161b22; padding: 16px; border-radius: 6px; overflow-x: auto; border: 1px solid #30363d; }
-        pre code { color: #e6edf3; background: none; padding: 0; }
-        .highlight { color: #79c0ff; }
+        :root {
+            --bg-color: #0d1117;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-hover: #1f6feb;
+            --card-bg: #161b22;
+            --border: #30363d;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 900px;
+            padding: 40px 20px;
+            width: 100%;
+        }
+
+        h1, h2, h3 {
+            color: #ffffff;
+            margin-top: 2em;
+            margin-bottom: 0.5em;
+        }
+
+        h1 { font-size: 2.5rem; margin-top: 0; margin-bottom: 0.2em; }
+        h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .badges {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--accent);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        pre {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            color: #ff7b72;
+        }
+
+        pre code { color: var(--text-main); }
+        .keyword { color: #ff7b72; }
+        .string { color: #a5d6ff; }
+        .comment { color: #8b949e; }
+        .function { color: #d2a8ff; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: #010409;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        tr:last-child td { border-bottom: none; }
+        
+        .notice {
+            background-color: rgba(88, 166, 255, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
 
-    <h1>Jega Digital - API Authentication</h1>
-    <p>If you were redirected here, your AI agent or scraper hit our <strong>402 Payment Required</strong> paywall. Jega Digital data pipelines do not use monthly SaaS subscriptions or static API keys. We use native <strong>x402 stablecoin streaming</strong> over the Base network.</p>
+<div class="container">
+    <h1>Jega Digital Agentic Infrastructure</h1>
+    <p class="subtitle">High-performance, zero-latency machine APIs built for autonomous web3 agents.</p>
+    
+    <div class="badges">
+        <span class="badge">Base Mainnet (EIP155:8453)</span>
+        <span class="badge">Pay-Per-Compute (x402)</span>
+        <span class="badge">No API Keys</span>
+    </div>
 
-    <h2>How to upgrade your bot (Node.js)</h2>
-    <p>To access our endpoints, wrap your standard fetch requests with the x402 SDK. This will stream micro-cents (USDC) from your wallet only when you make a successful request.</p>
+    <div class="notice">
+        <strong>402 Payment Required:</strong> If your agent was redirected here, it has exhausted its 3 free-tier requests. Jega Digital endpoints require native x402 USDC stablecoin streaming to bypass rate limits.
+    </div>
 
-    <pre><code>npm install @x402/sdk</code></pre>
+    <h2>1. Integration & Setup (Node.js)</h2>
+    <p>Wrap your standard fetch requests with the x402 SDK. This will automatically negotiate the paywall challenge, sign the micro-transaction, and return the data.</p>
+    
+    <pre><code><span class="keyword">import</span> { wrapFetchWithPayment, x402Client } <span class="keyword">from</span> <span class="string">"@x402/fetch"</span>;
+<span class="keyword">import</span> { privateKeyToAccount } <span class="keyword">from</span> <span class="string">"viem/accounts"</span>;
+<span class="keyword">import</span> { base } <span class="keyword">from</span> <span class="string">"viem/chains"</span>;
 
-    <p>Then, update your script with this 5-line wrapper:</p>
+<span class="comment">// 1. Initialize your agent's secure wallet</span>
+<span class="keyword">const</span> account = <span class="function">privateKeyToAccount</span>(<span class="string">"0x_YOUR_AGENT_PRIVATE_KEY"</span>);
+<span class="keyword">const</span> client = <span class="keyword">new</span> <span class="function">x402Client</span>();
 
-    <pre><code>import { x402Client, wrapFetchWithPayment, registerExactEvmScheme } from "@x402/sdk";
-import { privateKeyToAccount } from "viem/accounts";
-import { base } from "viem/chains";
+<span class="comment">// 2. Register the payment scheme for Base Mainnet</span>
+client.<span class="function">registerExactEvmScheme</span>({ signer: account, chainId: base.id });
 
-// 1. Load your funded Base wallet
-const account = privateKeyToAccount("0xYOUR_PRIVATE_KEY");
-const client = new x402Client();
+<span class="comment">// 3. Wrap the standard fetch API</span>
+<span class="keyword">const</span> fetchWithPayment = <span class="function">wrapFetchWithPayment</span>(fetch, client);
 
-registerExactEvmScheme(client, { signer: account, chainId: base.id });
-const fetchWithPayment = wrapFetchWithPayment(fetch, client);
-
-// 2. Fetch the Premium Data!
-const response = await fetchWithPayment("https://api.jega.digital/api/news/trend", {
-    method: "GET",
+<span class="comment">// 4. Execute. The SDK handles the 402 challenge and streams USDC.</span>
+<span class="keyword">const</span> response = <span class="keyword">await</span> <span class="function">fetchWithPayment</span>(<span class="string">"https://api.jega.digital/api/schema/mcp"</span>, {
+    method: <span class="string">"POST"</span>,
+    headers: { <span class="string">"Content-Type"</span>: <span class="string">"application/json"</span> },
+    body: JSON.<span class="function">stringify</span>({ 
+        name: <span class="string">"agent_tool"</span>, 
+        description: <span class="string">"Dynamic tool payload here"</span> 
+    })
 });
 
-const data = await response.json();
-console.log(data);
-</code></pre>
+<span class="keyword">const</span> data = <span class="keyword">await</span> response.<span class="function">json</span>();
+console.<span class="function">log</span>(data);</code></pre>
 
-    <h2>Pricing</h2>
+    <h2>2. API Reference Matrix</h2>
+    <p>Select the endpoint tailored for your agent's operational logic. All pricing is negotiated per atomic unit.</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Endpoint</th>
+                <th>Method</th>
+                <th>Cost</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>/api/schema/mcp</code></td>
+                <td>POST</td>
+                <td>$0.001</td>
+                <td><strong>Deterministic MCP Translator.</strong> Converts unstructured JSON into strict Anthropic/MCP schemas in &lt;4ms.</td>
+            </tr>
+            <tr>
+                <td><code>/api/drift</code></td>
+                <td>GET</td>
+                <td>$0.001</td>
+                <td><strong>BTC Arbitrage Oracle.</strong> High-frequency divergence signaling between Coinbase spot and Kalshi implied volatility.</td>
+            </tr>
+            <tr>
+                <td><code>/api/render/markdown</code></td>
+                <td>GET</td>
+                <td>$0.005</td>
+                <td><strong>Premium RAG Proxy.</strong> Bypasses JS/Cloudflare bot-walls to return token-efficient Markdown for vector embeddings.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>3. Treasury & Billing Details</h2>
     <ul>
-        <li><strong>Premium Semantic News Feed:</strong> $0.001 USDC / request</li>
-        <li><strong>High-Frequency Arbitrage Drift:</strong> $0.001 USDC / request</li>
-        <li><strong>LLM Markdown Proxy:</strong> $0.005 USDC / request</li>
+        <li><strong>Network:</strong> Base Mainnet (<code>eip155:8453</code>)</li>
+        <li><strong>Asset:</strong> USDC (<code>0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913</code>)</li>
+        <li><strong>Atomic Conversion:</strong> 1,000 atomic units = $0.001 USDC.</li>
+        <li><strong>Treasury Protocol:</strong> Settlements are routed and verified instantly via the Coinbase CDP Facilitator engine.</li>
     </ul>
     
-    <p>Need support? Contact <span class="highlight">dev@jega.digital</span></p>
+    <br><br>
+    <p class="subtitle" style="text-align: center; font-size: 0.9rem;">
+        Operated by Jega Digital. Deployed for the Agentic Web.
+    </p>
+
+</div>
 
 </body>
 </html>
